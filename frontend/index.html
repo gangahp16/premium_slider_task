@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Policy UI Grid Table</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f4f4f4;
+    }
+
+    .filter-box {
+      margin-bottom: 15px;
+    }
+
+    input, select, button {
+      padding: 6px;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h2>Policy UI Grid Table</h2>
+
+  <!-- FILTER SECTION -->
+  <div class="filter-box">
+    Min Premium:
+    <input type="number" id="minPremium" placeholder="0">
+
+    Max Premium:
+    <input type="number" id="maxPremium" placeholder="100000">
+
+    <button onclick="filterPolicies()">Apply Filter</button>
+    <button onclick="loadAllPolicies()">Reset</button>
+  </div>
+
+  <!-- TABLE GRID -->
+  <table>
+    <thead>
+      <tr>
+        <th>Policy Name</th>
+        <th>Policy Type</th>
+        <th>Company</th>
+        <th>Premium</th>
+      </tr>
+    </thead>
+
+    <!-- ⚠️ VERY IMPORTANT -->
+    <tbody id="policyTable">
+      <!-- data comes here -->
+    </tbody>
+  </table>
+
+  <script src="script.js"></script>
+</body>
+</html>
