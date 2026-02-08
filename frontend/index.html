@@ -1,72 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Policy UI Grid Table</title>
-
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 20px;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
-    }
-
-    th, td {
-      border: 1px solid #ccc;
-      padding: 8px;
-      text-align: left;
-    }
-
-    th {
-      background-color: #f4f4f4;
-    }
-
-    .filter-box {
-      margin-bottom: 15px;
-    }
-
-    input, select, button {
-      padding: 6px;
-      margin-right: 10px;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <title>Policy Filter</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-  <h2>Policy UI Grid Table</h2>
+  <h2>Insurance Policies</h2>
 
-  <!-- FILTER SECTION -->
+  <!-- Filter Section -->
   <div class="filter-box">
-    Min Premium:
-    <input type="number" id="minPremium" placeholder="0">
-
-    Max Premium:
-    <input type="number" id="maxPremium" placeholder="100000">
-
-    <button onclick="filterPolicies()">Apply Filter</button>
-    <button onclick="loadAllPolicies()">Reset</button>
+    <input type="number" id="minPrice" placeholder="Min Premium">
+    <input type="number" id="maxPrice" placeholder="Max Premium">
+    <button onclick="filterPolicies()">Filter</button>
+    <button onclick="loadPolicies()">Reset</button>
   </div>
 
-  <!-- TABLE GRID -->
+  <!-- Table -->
   <table>
     <thead>
       <tr>
         <th>Policy Name</th>
-        <th>Policy Type</th>
+        <th>Type</th>
         <th>Company</th>
         <th>Premium</th>
       </tr>
     </thead>
-
-    <!-- ⚠️ VERY IMPORTANT -->
-    <tbody id="policyTable">
-      <!-- data comes here -->
+    <tbody id="policyTableBody">
+      <!-- Data comes from JS -->
     </tbody>
   </table>
 

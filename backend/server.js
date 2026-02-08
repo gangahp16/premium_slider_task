@@ -1,9 +1,13 @@
+
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require("cors");
 require("./db");
 const Policy = require("./policy");   // ✅ ONLY ONCE
 
 const app = express();
+app.use(cors());
+
 app.use(express.json());
 
 // Get all policies

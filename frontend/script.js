@@ -1,24 +1,38 @@
-const tableBody = document.getElementById("policyTable");
+const API_URL = "http://localhost:5000";
 
-// Load ALL policies when page loads
-window.onload = () => {
-  loadAllPolicies();
+// Load all policies when page loads
+window.onload = function () {
+  loadPolicies();
 };
 
-function loadAllPolicies() {
-  fetch("http://localhost:5000/policies")
-    .then(res => res.json())
-    .then(data => renderTable(data))
-    .catch(err => console.error(err));
+// Fetch all policies
+function loadPolicies() {
+  fetch(`${API_URL}/policies`)
+    .then(response => response.json())
+    .then(data => displayPolicies(data))
+    .catch(error => console.error("Error:", error));
 }
 
-function renderTable(policies) {
-  tableBody.innerHTML = "";
+// Filter policies by premium range
+function filterPolicies() {
+  const min = document.getElementById("minPrice").value;
+  const max = document.getElementById("maxPrice").value;
 
-  if (policies.length === 0) {
-    tableBody.innerHTML = `<tr><td colspan="4">No policies found</td></tr>`;
+  if (!min || !max) {
+    alert("Please enter both Min and Max price");
     return;
   }
+
+  fetch(`${API_URL}/policies/filter?min=${min}&max=${max}`)
+    .then(response => response.json())
+    .then(data => displayPolicies(data))
+    .catch(error => console.error("Error:", error));
+}
+
+// Display policies in table
+function displayPolicies(policies) {
+  const tableBody = document.getElementById("policyTableBody");
+  tableBody.innerHTML = "";
 
   policies.forEach(policy => {
     const row = `
@@ -31,14 +45,4 @@ function renderTable(policies) {
     `;
     tableBody.innerHTML += row;
   });
-}
-
-function filterPolicies() {
-  const min = document.getElementById("minPremium").value || 0;
-  const max = document.getElementById("maxPremium").value || 999999;
-
-  fetch(`http://localhost:5000/policies/filter?min=${min}&max=${max}`)
-    .then(res => res.json())
-    .then(data => renderTable(data))
-    .catch(err => console.error(err));
 }
