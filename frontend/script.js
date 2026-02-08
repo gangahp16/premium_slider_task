@@ -9,21 +9,34 @@ window.onload = function () {
 function loadPolicies() {
   fetch(`${API_URL}/policies`)
     .then(response => response.json())
-    .then(data => displayPolicies(data))
-    .catch(error => console.error("Error:", error));
+    .then(data => {
+      displayPolicies(data);
+      setSliderMax(data);
+    });
+}
+
+function setSliderMax(policies) {
+  const slider = document.getElementById("priceSlider");
+  const priceValue = document.getElementById("priceValue");
+
+  // Find maximum premium from DB data
+  const premiums = policies.map(p => p.premium);
+  const maxPremium = Math.max(...premiums);
+
+  slider.max = maxPremium;
+  slider.value = maxPremium;
+  priceValue.innerText = maxPremium;
 }
 
 // Filter policies by premium range
-function filterPolicies() {
-  const min = document.getElementById("minPrice").value;
-  const max = document.getElementById("maxPrice").value;
+function updateSliderValue() {
+  const slider = document.getElementById("priceSlider");
+  const priceValue = document.getElementById("priceValue");
 
-  if (!min || !max) {
-    alert("Please enter both Min and Max price");
-    return;
-  }
+  const maxPrice = slider.value;
+  priceValue.innerText = maxPrice;
 
-  fetch(`${API_URL}/policies/filter?min=${min}&max=${max}`)
+  fetch(`${API_URL}/policies/filter?min=0&max=${maxPrice}`)
     .then(response => response.json())
     .then(data => displayPolicies(data))
     .catch(error => console.error("Error:", error));

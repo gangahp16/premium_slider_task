@@ -11,11 +11,21 @@
 
   <!-- Filter Section -->
   <div class="filter-box">
-    <input type="number" id="minPrice" placeholder="Min Premium">
-    <input type="number" id="maxPrice" placeholder="Max Premium">
-    <button onclick="filterPolicies()">Filter</button>
-    <button onclick="loadPolicies()">Reset</button>
-  </div>
+  <label>
+    Max Premium: 
+    <span id="priceValue">5000</span>
+  </label>
+  <br><br>
+
+  <input 
+  type="range" 
+  id="priceSlider"
+  min="0"
+  step="500"
+  value="0"
+  oninput="updateSliderValue()"
+/>
+</div>
 
   <!-- Table -->
   <table>
